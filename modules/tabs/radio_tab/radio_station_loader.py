@@ -16,7 +16,7 @@ class RadioStationLoader:
         music_files = {}
         try:
             for entry in os.scandir(station_folder):
-                if entry.name.endswith('.ogg'):
+                if entry.name.endswith(('.ogg', '.mp3')):
                     try:
                         tag = TinyTag.get(entry.path)
                         music_files[entry.path] = int(tag.duration * 1000)
@@ -35,7 +35,7 @@ class RadioStationLoader:
         for entry in os.scandir(intermissions_path):
             if entry.is_dir():
                 intermissions.update(self.load_intermissions(entry.path))  # recursive call
-            elif entry.is_file() and entry.name.endswith('.ogg'):
+            elif entry.is_file() and entry.name.endswith(('.ogg', '.mp3')):
                 try:
                     tag = TinyTag.get(entry.path)
                     intermissions[entry.path] = int(tag.duration * 1000)

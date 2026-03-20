@@ -38,7 +38,7 @@ class PlaylistManager:
             def gather_ogg_files(path):
                 if os.path.exists(path):
                     for entry in os.scandir(path):
-                        if entry.is_file() and entry.name.endswith('.ogg'):
+                        if entry.is_file() and entry.name.endswith(('.ogg', '.mp3')):
                             yield entry.path
 
             pre_options.extend(gather_ogg_files(artist_path))

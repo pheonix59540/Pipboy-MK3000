@@ -13,7 +13,7 @@ class SpecialTab:
         self.tab_instance = tab_instance
         self.draw_space = draw_space
         
-        self.special_font = pygame.font.Font(settings.ROBOTO_BOLD_PATH, 12)
+        self.special_font = pygame.font.Font(settings.ROBOTO_CONDENSED_PATH, 12)
         self.description_font = pygame.font.Font(settings.ROBOTO_BOLD_PATH, 9) 
         
         list_draw_space = pygame.Rect(

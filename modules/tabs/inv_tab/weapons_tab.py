@@ -7,19 +7,31 @@ from util_functs import Utils
 
 class WeaponsTab(InvBase):
     def __init__(self, screen, tab_instance, draw_space):
+        # Initialise les attributs AVANT tout le reste
+        self.item_selected = None
+        self.active_item_index = None
+
+        # Appelle le parent (crée list_draw_space)
         super().__init__(screen, tab_instance, draw_space, category='Weapon', enable_dot=True)
-        self.tab_instance.init_footer(self, (settings.SCREEN_WIDTH // 4, settings.SCREEN_WIDTH // 4), self.init_footer_text())
         
+        # Si inventaire vide, arrête ici
+        if self.no_items:
+            return
+
+        # Maintenant list_draw_space existe !
+        self.tab_instance.init_footer(self, (settings.SCREEN_WIDTH // 4, settings.SCREEN_WIDTH // 4), self.init_footer_text())
+
         self.ammo_icon = Utils.load_svg(self.small_icon_size, settings.AMMO_ICON)
         self.gun_icon = Utils.load_svg(self.big_icon_size, settings.GUN_ICON)
+        # Crée l'item_grid APRES super().__init__
         self.item_grid = ItemGrid(
             draw_space=self.calculate_grid_space(),
             font=self.inv_font,
             padding=1
         )
-        
-        entries = self.get_grid_entries(self.inv_items[self.inv_list.selected_index])
-        self.item_grid.update(entries)       
+        if self.inv_items:  # Vérifie que la liste n'est pas vide
+            entries = self.get_grid_entries(self.inv_items[self.inv_list.selected_index])
+            self.item_grid.update(entries)       
                 
     def init_footer_text(self):
         weight_surface = self.init_footer_weight()
@@ -145,6 +157,11 @@ class WeaponsTab(InvBase):
  
 
     def calculate_grid_space(self):
+        # Vérifie si list_draw_space existe
+        if not hasattr(self, 'list_draw_space'):
+            # Retourne un espace par défaut
+            return pygame.Rect(0, 0, 100, 100)
+        
         list_space = self.list_draw_space
         return pygame.Rect(
             list_space.right + settings.GRID_LEFT_MARGIN,  # Horizontal spacing from list
@@ -217,4 +234,5 @@ class WeaponsTab(InvBase):
 
     def render(self):
         super().render()
-        self.item_grid.render(self.screen)
+        if hasattr(self, 'item_grid'):
+            self.item_grid.render(self.screen)

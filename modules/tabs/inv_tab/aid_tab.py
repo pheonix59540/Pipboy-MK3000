@@ -6,9 +6,15 @@ from util_functs import Utils
 
 class AidTab(InvBase):
     def __init__(self, screen, tab_instance, draw_space):
+        self.item_selected = None
+        self.active_item_index = None
+
         # Initialize the base class with the 'Aid' category.
         super().__init__(screen, tab_instance, draw_space, category='Aid', enable_turntable=True)
         
+        if self.no_items:
+            return
+
         # Initialize the footer for the aid tab.
         self.tab_instance.init_footer(
             self, 

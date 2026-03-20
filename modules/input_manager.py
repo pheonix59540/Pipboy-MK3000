@@ -22,6 +22,7 @@ class InputManager:
 
 
     def handle_input(self, tab_manager):
+        qsize = self.key_queue.qsize()
         with self.get_key_lock:
             while not self.key_queue.empty():
                 key = self.key_queue.get()

@@ -259,7 +259,7 @@ class Utils:
     @staticmethod
     def get_time():
         now = datetime.datetime.now()    
-        current_time = now.strftime("%I:%M%p")
+        current_time = now.strftime("%H:%M")
         return current_time
     
     @staticmethod

@@ -20,7 +20,7 @@ class RadioTab:
         self.draw_space = draw_space
 
         self.tab_instance.init_footer(self)
-        self.main_font = pygame.font.Font(settings.ROBOTO_BOLD_PATH, 12)
+        self.main_font = pygame.font.Font(settings.ROBOTO_CONDENSED_PATH, 12)
         
         
         list_draw_space = pygame.Rect(
@@ -135,6 +135,10 @@ class RadioTab:
                 if song_offset < duration_sec:
                     if self.current_song != current_song:
                         try:
+                            # Réinitialise le mixer avec paramètres optimaux
+                            pygame.mixer.quit()
+                            pygame.mixer.init(frequency=44100, size=-16, channels=2, buffer=2048)
+
                             pygame.mixer.music.load(current_song)
                             pygame.mixer.music.set_volume(settings.MUSIC_VOLUME)
                             pygame.mixer.music.play(start=song_offset)

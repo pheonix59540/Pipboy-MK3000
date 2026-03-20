@@ -14,7 +14,7 @@ class InvBase:
         self.draw_space = draw_space
         self.enable_turntable = enable_turntable
         
-        self.inv_font = pygame.font.Font(settings.ROBOTO_BOLD_PATH, 10)
+        self.inv_font = pygame.font.Font(settings.ROBOTO_CONDENSED_PATH, 12)
         self.footer_font = tab_instance.footer_font               
         inventory = Inventory()
         self.inv_items = inventory.get_all_items(category)
@@ -28,11 +28,10 @@ class InvBase:
         self.item_selected = False
         self.active_item_index = None
         self.previous_item_index = None
-        
+
         self.unique_items = inventory.get_unique_items(category)
         
         item_names = inventory.get_item_names(category)
-
            
         self.list_draw_space = pygame.Rect(
             self.draw_space.left,
@@ -183,6 +182,7 @@ class InvBase:
         self.tab_instance.render_footer(self)
         if self.no_items:
             return
+
         self.inv_list.render(self.screen, self.active_item_index, self.item_selected)
         if self.enable_turntable and self.item_turntable:
             self.item_turntable.render()

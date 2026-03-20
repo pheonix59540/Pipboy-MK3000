@@ -143,40 +143,37 @@ class GenericList:
             self.update_list()    
         return prev_index
 
+    
     def render(self, screen, active_index=None, was_selected=False):
         if not self.list_surface or not self.selected_text:
             return
-
+    
+        # Calculer l'offset de scroll pour suivre la sélection
+        visible_items = self.draw_space.height // self.font_height
+        scroll_offset = 0
+    
+        if self.selected_index >= visible_items:
+            scroll_offset = (self.selected_index - visible_items + 1) * self.font_height
+    
+        # Effacer et redessiner avec offset
         self.view_surface.fill(settings.BACKGROUND)
-        self.view_surface.blit(self.list_surface, (0, 0))
-
-        # Draw selection rectangle
-        pygame.draw.rect(self.view_surface, self.selection_rect_color, self.selection_rect)
-        self.view_surface.blit(self.selected_text, (self.text_margin, self.selection_rect.y))
-        
+        self.view_surface.blit(self.list_surface, (0, -scroll_offset))
+    
+        # Rectangle de sélection (ajusté avec offset)
+        selection_y = self.selection_rect.y - scroll_offset
+        self.view_surface.blit(self.selected_text, (self.text_margin, selection_y))
+    
         if self.stats is not None:
-            stat_x = self.selection_rect_width - self.max_stat_width- (self.selected_stat.get_width() // 2)
-            self.view_surface.blit(self.selected_stat, (stat_x, self.selection_rect.y))
-
-        # Conditional dot rendering
+            stat_x = self.selection_rect_width - self.max_stat_width - (self.selected_stat.get_width() // 2)
+            self.view_surface.blit(self.selected_stat, (stat_x, selection_y))
+    
+        # Dot conditionnel
         if self.enable_dot and active_index is not None and was_selected:
-            dot = (self.dot_darker if (active_index == self.selected_index)
-                   else self.dot)
-            dot_y = (active_index * self.font_height + 
-                    (self.font_height // 2) - 
-                    (self.dot_size // 2))
+            dot = self.dot_darker if (active_index == self.selected_index) else self.dot
+            dot_y = (active_index * self.font_height + (self.font_height // 2) - (self.dot_size // 2)) - scroll_offset
             self.view_surface.blit(dot, (self.text_margin - self.selection_dot_margin, dot_y))
-
+    
         screen.blit(self.view_surface, (self.draw_space.x, self.draw_space.y))
-
-
-
-
-
-
-# Generic grid class for displaying items with labels and values
-# Supports vertical dividers and highlighting of entries
-
 
 class ItemGrid:
     def __init__(self, draw_space, font, padding=5, text_margin=0.5):
@@ -392,8 +389,8 @@ class AnimatedImage:
 
     def stop(self):
         """Stop the animation instantly."""
-        ch = pygame.mixer.Channel(5)
-        ch.stop()  # Stops any sound currently on this channel
+        # ch = pygame.mixer.Channel(5)
+        # ch.stop()  # Stops any sound currently on this channel
         self.stop_event.set()  # Signal thread to exit
         self.thread = None  # Allow restarting without blocking
 

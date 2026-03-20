@@ -4,6 +4,8 @@
 [![Python Version](https://img.shields.io/badge/Python-3.12%2B-blue.svg)](https://www.python.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
+ORIGIN : https://github.com/kelmes1/pipboy-pi
+
 > A Pip-Boy inspired application built with Python and Pygame-ce
 
 ---
@@ -69,6 +71,74 @@ It is recommended to first run the project on your windows machine to ensure eve
    ```
 
 ---
+
+### Raspberry Pi Zero 2W Setup
+
+For deployment on Raspberry Pi Zero 2W with DietPI:
+
+1. **Flash DietPI:**
+   - Download [DietPI](https://dietpi.com/) for Raspberry Pi
+   - Flash to SD card using Raspberry Pi Imager
+
+2. **Install System Dependencies:**
+```bash
+   sudo apt update
+   sudo apt install -y python3-pygame python3-pip git
+   pip3 install -r requirements.txt --break-system-packages
+```
+
+3. **Copy Configuration Files:**
+
+   After cloning the repository, copy system configs:
+```bash
+   # Backup originals first!
+   sudo cp /boot/firmware/config.txt /boot/firmware/config.txt.backup
+   sudo cp /boot/firmware/cmdline.txt /boot/firmware/cmdline.txt.backup
+   
+   # Copy Pip-Boy configs
+   sudo cp config/config.txt /boot/firmware/
+   sudo cp config/cmdline.txt /boot/firmware/
+   sudo cp config/dietpi.txt /boot/
+   sudo cp config/Automation_Custom_Script.sh /boot/
+   sudo cp config/pipboy.service /etc/systemd/system/
+```
+
+4. **Enable Service:**
+```bash
+   sudo systemctl daemon-reload
+   sudo systemctl enable pipboy.service
+   sudo systemctl start pipboy.service
+```
+
+5. **Reboot:**
+```bash
+   sudo reboot
+```
+
+### Hardware Configuration
+
+- **Display:** MPI3508 3.5" touchscreen (SPI)
+- **Audio:** Onboard or MAX98357A I2S amplifiers
+- **Input:** MT6701 rotary encoder (I2C) + 5-position selector
+- **Motor:** Stepper motor with DRV8834 driver
+
+See `config/` folder for GPIO pin mappings and wiring diagrams.
+
+### Important Notes
+
+⚠️ **Configuration files in `config/` are specific to this Pip-Boy build:**
+- `config.txt` - Custom display settings (320x255, boot screen color)
+- `cmdline.txt` - Kernel parameters for terminal colors
+- `dietpi.txt` - DietPI automation settings
+- `pipboy.service` - Systemd service for auto-start
+
+**Always backup original files before replacing!**
+
+📻 **Audio files:**
+- Radio files should be in MP3 format (320kbps recommended)
+- Place in `sounds/radio/[station_name]/`
+- Perk sounds: `sounds/pipboy/PerkMenu/[perk_name].ogg`
+
 
 ## Usage
 

@@ -1,0 +1,19 @@
+[Unit]
+Description=Pip-Boy Application
+After=network.target
+
+[Service]
+Type=simple
+User=root
+Environment="DISPLAY=:0"
+Environment="SDL_VIDEODRIVER=x11"
+WorkingDirectory=/root/pipboy-pi/modules
+ExecStartPre=/sbin/modprobe snd_bcm2835
+ExecStartPre=/bin/sh -c '/usr/bin/X :0 vt7 & sleep 3'
+ExecStartPre=/bin/sh -c 'setterm -term linux -foreground green -background black -clear all > /dev/tty1'
+ExecStart=/root/pipboy-pi/venv/bin/python /root/pipboy-pi/modules/main.py
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

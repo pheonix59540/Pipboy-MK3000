@@ -6,9 +6,17 @@ from util_functs import Utils
 
 class ApparelTab(InvBase):
     def __init__(self, screen, tab_instance, draw_space):
+        # Initialise les attributs
+        self.item_selected = None
+        self.active_item_index = None
+
         # Initialize the base class with the 'Apparel' category.
         super().__init__(screen, tab_instance, draw_space, category='Apparel', enable_turntable=False, enable_dot=True)
         
+        # Si inventaire vide, arrête ici
+        if self.no_items:
+            return
+
         # Initialize the footer for the apparel tab.
         self.tab_instance.init_footer(self, (settings.SCREEN_WIDTH // 4, settings.SCREEN_WIDTH // 4), self.init_footer_text())
         

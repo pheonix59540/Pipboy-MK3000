@@ -5,9 +5,15 @@ from ui import ItemGrid
 
 class JunkTab(InvBase):
     def __init__(self, screen, tab_instance, draw_space):
+        self.item_selected = None
+        self.active_item_index = None
+
         # Initialize the base class with the 'Junk' category.
         super().__init__(screen, tab_instance, draw_space, category='Junk', enable_turntable=True)
         
+        if self.no_items:
+            return
+
         # Initialize the footer for the junk tab.
         self.tab_instance.init_footer(
             self, 

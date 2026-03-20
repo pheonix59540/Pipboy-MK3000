@@ -2,6 +2,7 @@ import pygame
 import settings
 from .status_tab import StatusTab
 from .special_tab import SpecialTab
+from .perks_tab import PerksTab
 from tab import ThreadHandler
 
 class StatTab:
@@ -25,11 +26,13 @@ class StatTab:
         
         self.status_tab = StatusTab(self.screen, self.tab_instance, self.draw_space)
         self.special_tab = SpecialTab(self.screen, self.tab_instance, self.draw_space)
+        self.perks_tab = PerksTab(self.screen, self.tab_instance, self.draw_space)
         
         
         sub_tab_map = {
             0: self.status_tab,
-            1: self.special_tab
+            1: self.special_tab,
+            2: self.perks_tab
         }
         
         self.sub_tab_thread_handler = ThreadHandler(sub_tab_map, self.current_sub_tab_index)
@@ -61,10 +64,15 @@ class StatTab:
     
     
     def change_sub_tab(self, sub_tab: int):
+        # Arrêter l'ancien sub-tab AVANT de changer
+        if self.current_sub_tab_index == 2:  # Si on quitte PERKS
+            self.perks_tab.handle_threads(False)
+        elif self.current_sub_tab_index == 1:  # Si on quitte SPECIAL
+            self.special_tab.handle_threads(False)
+    
         self.current_sub_tab_index = sub_tab
         self.sub_tab_thread_handler.update_tab_index(self.current_sub_tab_index)
-
-
+    
     def scroll(self, direction: bool):
         match self.current_sub_tab_index:
             case 0: # STATUS
@@ -72,15 +80,20 @@ class StatTab:
             case 1: # SPECIAL
                 self.special_tab.scroll_special(direction)
             case 2: # PERKS
-                pass
+                self.perks_tab.scroll(direction)
             case _: # DEFAULT
                 pass
 
-
     def handle_threads(self, tab_selected: bool):
-        self.sub_tab_thread_handler.update_tab_index(self.current_sub_tab_index)
-    
-
+        """Appelé quand on quitte/entre dans STAT"""
+        if not tab_selected:
+            # FORCER l'arrêt de TOUS les sub-tabs
+            self.status_tab.handle_threads(False)
+            self.special_tab.handle_threads(False)
+            self.perks_tab.handle_threads(False)
+        else:
+            # Démarrer le sub-tab actuel
+            self.sub_tab_thread_handler.update_tab_index(self.current_sub_tab_index)
 
     def render(self):
         self.tab_instance.render_footer(self)
@@ -90,7 +103,7 @@ class StatTab:
             case 1: # Special
                 self.special_tab.render()
             case 2: # Perks
-                pass
+                self.perks_tab.render()
             case _:
                 pass
             

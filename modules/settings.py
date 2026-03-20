@@ -52,7 +52,7 @@ PIP_BOY_DARK = (0, 63, 0)
 # ------------------
 SOUND_ON = True
 VOLUME = 1
-MUSIC_VOLUME = 1
+MUSIC_VOLUME = 0.7
 SWITCH_SOUND_CHANCE = 70
 
 # ------------------
@@ -91,7 +91,7 @@ LIST_TOP_MARGIN = 10
 # ------------------
 # Player Settings
 # ------------------
-PLAYER_NAME = "Kelmes"
+PLAYER_NAME = "Ycham"
 HP_MAX = 120
 HP_CURRENT = 100
 AP_MAX = 90
@@ -101,7 +101,7 @@ LEVEL = 28
 XP_CURRENT = 39
 ADDICTED = False
 
-DEFAULT_LIMB_DAMAGE = [70, 14, 69, 54, 28, 100]
+DEFAULT_LIMB_DAMAGE = [70, 65, 69, 54, 87, 100]
 CRIPPLED_THRESHOLD = 20
 DAMAGED_THRESHOLD = 50
 DEFAULT_STATS_DAMAGE = [
@@ -182,6 +182,106 @@ SPECIAL_DESCRIPTIONS = [
     "Agility is a measure of your overall fitnesse and reflexes. It affects the number of Action Points in V.A.T.S. and your ability to sneak",
     "Luck is a measure of your general good fortune, and affects the recharge rate of Critical Hits, and the chances of finding better items."
 ]
+
+# ------------------
+# Perks Subtab
+# ------------------
+PERKS_BASE_FOLDER = "../images/stats/perks"
+PERK_SOUNDS = "../sounds/pipboy/PerkMenu"
+
+PERKS = [
+    "Action Boy", "Action Girl", "Adamantium Skeleton", "Animal Friend", 
+    "Aquaboy", "Aquagirl", "Armorer", "Attack Dog", "Awareness", "Basher",
+    "Better Criticals", "Big Leagues", "Blacksmith", "Blitz", "Bloody Mess",
+    "Cannibal", "Cap Collector", "Chem Resistant", "Chemist", "Commando",
+    "Concentrated Fire", "Critical Banker", "Demolition Expert", "Fortune Finder",
+    "Four Leaf Clover", "Ghoulish", "Grim Reapers Sprint", "Gun Fu", "Gun Nut",
+    "Gunslinger", "Hacker", "Heavy Gunner", "Idiot Savant", "Inspirational",
+    "Intimidation", "Iron Fist", "Lady Killer", "Lead Belly", "Life Giver",
+    "Local Leader", "Locksmith", "Lone Wanderer", "Medic", "Mister Sandman",
+    "Moving Target", "Mystery Stranger", "Nerd Rage", "Night Person", "Ninja",
+    "Nuclear Physicist", "Pain Train", "Party Boy", "Party Girl", "Penetrator",
+    "Pickpocket", "Rad Resistant", "Refractor", "Ricochet", "Rifleman",
+    "Robotics Expert", "Rooted", "Science", "Scrapper", "Scrounger",
+    "Sneak", "Sniper", "Solar Powered", "Steady Aim", "Strong Back",
+    "Toughness", "VANS", "Wasteland Whisperer"
+]
+
+PERK_DESCRIPTIONS = [
+    "Action Boy Gain +25% faster Action Point regeneration.",
+    "Action Girl Gain +25% faster Action Point regeneration.",
+    "Adamantium Skeleton Your limbs take 30% less damage.",
+    "Animal Friend Aim at any animal below your level for a 25% chance to pacify it.",
+    "Aquaboy No longer take radiation damage from swimming and can breathe underwater.",
+    "Aquagirl No longer take radiation damage from swimming and can breathe underwater.",
+    "Armorer Gain access to base level and Rank 1 armor mods.",
+    "Attack Dog Your faithful canine companion can hold an enemy allowing you to make a Critical Hit on V.A.T.S.",
+    "Awareness You can see a target's specific damage resistances in V.A.T.S.",
+    "Basher Gun bashing does +25% more damage.",
+    "Better Criticals Advanced training means critical hits do 50% more extra damage.",
+    "Big Leagues Melee weapons do 20% more damage.",
+    "Blacksmith Gain access to base level and Rank 1 melee weapon mods.",
+    "Blitz V.A.T.S. melee distance is increased significantly.",
+    "Bloody Mess 5% bonus damage means enemies will sometimes explode into a gory red paste. Watch out for flying eyeballs.",
+    "Cannibal Eating Corpses restores Health.",
+    "Cap Collector You gain 10% more bottle caps when opening a cap stash.",
+    "Chem Resistant You're 50% less likely to get addicted when consuming Chems.",
+    "Chemist Any chems you take last 50% longer.",
+    "Commando Rigorous combat training means automatic rifles do 20% more damage.",
+    "Concentrated Fire Every attack on the same body part in V.A.T.S. gains +10% accuracy.",
+    "Critical Banker You can save a critical hit to be used in V.A.T.S. when you need it most.",
+    "Demolition Expert Your explosives do 25% more damage and you can craft explosives at any Chemistry Station.",
+    "Fortune Finder You find considerably more bottle caps in containers.",
+    "Four Leaf Clover Each hit in V.A.T.S. has a chance of filling your Critical meter.",
+    "Ghoulish Radiation now regenerates your lost Health.",
+    "Grim Reapers Sprint A kill in V.A.T.S. has a 15% chance to restore all Action Points.",
+    "Gun Fu Do 25% more damage to your 2nd target in V.A.T.S. and beyond.",
+    "Gun Nut You gain access to base level and Rank 1 gun mods.",
+    "Gunslinger Non-automatic pistols do 20% more damage.",
+    "Hacker Gain +1 attempt at hacking terminals.",
+    "Heavy Gunner Heavy guns do 20% more damage.",
+    "Idiot Savant Randomly receive 3x XP from any action. The lower your Intelligence the greater the chance.",
+    "Inspirational Your companion does +10% more damage in combat and cannot hurt you.",
+    "Intimidation When aiming your gun at any human opponent below your level you gain a chance to pacify them.",
+    "Iron Fist Punching attacks do 20% more damage to your opponent.",
+    "Lady Killer You're charming and dangerous. Men suffer +5% damage in combat and are easier to persuade in dialogue.",
+    "Lead Belly Take 20% less radiation from eating or drinking.",
+    "Life Giver Instantly gain +20 maximum Health.",
+    "Local Leader Invest 500 caps to start a trading post at your settlement.",
+    "Locksmith Gain access to picking locks of Level 1 Novice difficulty.",
+    "Lone Wanderer When adventuring without a companion you take 15% less damage and carry weight increases by 50.",
+    "Medic Stimpaks restore 40% of lost Health and RadAway removes 40% of radiation.",
+    "Mister Sandman Silenced weapons do an additional 15% sneak attack damage.",
+    "Moving Target Get +25 Damage Resistance and +25 Energy Resistance when you're sprinting.",
+    "Mystery Stranger The Mysterious Stranger will appear occasionally in V.A.T.S. to lend a hand.",
+    "Nerd Rage When your Health drops below 20% time slows and you gain +20 Damage Resistance.",
+    "Night Person Gain +2 Intelligence and +2 Perception between the hours of 6:00 pm and 6:00 am.",
+    "Ninja Ranged sneak attacks do 2.5x normal damage and melee sneak attacks do 4x normal damage.",
+    "Nuclear Physicist Radiation weapons do 50% more damage and Fusion Cores last 25% longer.",
+    "Pain Train Sprinting into enemies now hurts them and may cripple their limbs.",
+    "Party Boy Alcohol consumption holds no chance of addiction.",
+    "Party Girl Alcohol consumption holds no chance of addiction.",
+    "Penetrator In V.A.T.S. you can target enemy body parts that are blocked by cover with a decrease in accuracy.",
+    "Pickpocket Picking pockets and stealing is 25% easier.",
+    "Rad Resistant Gain +10 Radiation Resistance.",
+    "Refractor Gain +10 Energy Resistance.",
+    "Ricochet An enemy's ranged attack will sometimes ricochet back and instantly kill them.",
+    "Rifleman Keep your distance long and your kill-count high. Attacks with non-automatic rifles do 20% more damage.",
+    "Robotics Expert Hack a robot and gain a chance to power it on or off or initiate a self-destruct.",
+    "Rooted Gain +25 Damage Resistance when standing still.",
+    "Science Gain access to base level and Rank 1 high-tech mods.",
+    "Scrapper Salvage uncommon components like screws circuitry and nuclear material when scrapping weapons and armor.",
+    "Scrounger You find considerably more ammunition in containers.",
+    "Sneak You are 20% harder to detect while sneaking.",
+    "Sniper Gain improved control and hold your breath 25% longer while aiming with scopes.",
+    "Solar Powered Gain +2 to Strength and Endurance between the hours of 6:00 am and 6:00 pm.",
+    "Steady Aim Improve hip-fire accuracy with all guns.",
+    "Strong Back Gain +25 to carry weight.",
+    "Toughness Instantly gain +10 Damage Resistance.",
+    "VANS Let Vault-Tec guide you! The path to your closest quest target is displayed in V.A.T.S.",
+    "Wasteland Whisperer Aim your gun at any wasteland creature below your level for a 25% chance to pacify it."
+]
+
 
 # ------------------
 # Inventory Tab Settings
